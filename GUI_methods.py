@@ -13,7 +13,19 @@ class Grid:
         self.screen = screen
         self.border_color = (0, 0, 0)
 
-    def draw_grid(self):
+    def convert_grid(self):
+        """
+        Take values of each cell from cell_array and place them into the grid
+        array.
+        :return: a complete grid array
+        """
+
+    def convert_cell(self):
+        """
+        Convert grid array back into cell array.
+        :return:
+        """
+    def draw_grid_lines(self):
         for i in range(0, 10):
             if i % 3 == 0:
                 thick = 5
@@ -27,7 +39,10 @@ class Grid:
                              (i * self.cell_size, 0),
                              (i * self.cell_size, self.grid_size), thick)
 
-        # draw cube function here
+
+    def draw_cells(self):
+        #draw cube function here
+        pass
 
     def check_full(self):
         """
@@ -150,7 +165,7 @@ class Cell:
 
         self.num = 0
         self.text = ''
-        self.font = pygame.font.Font(None, 16)
+        self.font = pygame.font.Font(None, 40)
         self.txt_area = self.font.render(self.text, True, (0, 0, 0))
 
         self.row = row
@@ -167,17 +182,14 @@ class Cell:
         self.color_inactive = (255, 255, 255)
         self.color = self.color_inactive
 
-        #self.rect = pygame.Rect(self.x, self.y, self.row, self.col)
+        self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
 
     def draw_cell(self):
         # Draw the box
-        if self.active == True:
-            rect = pygame.Rect(self.x, self.y, self.row, self.col)
-            pygame.draw.rect(self.screen, self.color, rect)
-
+        pygame.draw.rect(self.screen, self.color, self.rect)
         # Blit the text/number onto the text surface
         if self.num != 0:
-            self.screen.blit(self.txt_area, (self.rect.x + 5, self.rect.y + 5))
+            self.screen.blit(self.txt_area, (self.rect.x + 18, self.rect.y + 13))
 
     def cell_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -192,11 +204,34 @@ class Cell:
                 self.color == self.color_inactive
 
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_1:
-                self.text = '1'
-                self.num = 1
-            # do the rest for keys 2-9
-
+            if self.active == True:
+                if event.key == pygame.K_1:
+                    self.text = '1'
+                    self.num = 1
+                if event.key == pygame.K_2:
+                    self.text = '2'
+                    self.num = 2
+                if event.key == pygame.K_3:
+                    self.text = '3'
+                    self.num = 3
+                if event.key == pygame.K_4:
+                    self.text = '4'
+                    self.num = 4
+                if event.key == pygame.K_5:
+                    self.text = '5'
+                    self.num = 5
+                if event.key == pygame.K_6:
+                    self.text = '6'
+                    self.num = 6
+                if event.key == pygame.K_7:
+                    self.text = '7'
+                    self.num = 7
+                if event.key == pygame.K_8:
+                    self.text = '8'
+                    self.num = 8
+                if event.key == pygame.K_9:
+                    self.text = '9'
+                    self.num = 9
             # re-render
             self.txt_area = self.font.render(self.text, True, (0, 0, 0))
 
