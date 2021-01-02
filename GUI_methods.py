@@ -39,11 +39,6 @@ class Grid:
                              (i * self.cell_size, 0),
                              (i * self.cell_size, self.grid_size), thick)
 
-
-    def draw_cells(self):
-        #draw cube function here
-        pass
-
     def check_full(self):
         """
         Checks if grid is full.
@@ -170,8 +165,8 @@ class Cell:
 
         self.row = row
         self.col = col
-        self.x = self.row * size
-        self.y = self.col * size
+        self.x = self.col * size
+        self.y = self.row * size
 
         self.width = size
         self.height = size
@@ -201,7 +196,7 @@ class Cell:
             if self.active == True:
                 self.color = self.color_active
             else:
-                self.color == self.color_inactive
+                self.color = self.color_inactive
 
         if event.type == pygame.KEYDOWN:
             if self.active == True:
