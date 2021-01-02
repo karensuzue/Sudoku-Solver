@@ -5,6 +5,7 @@ from GUI_methods import Grid
 GRID_SIZE = 450
 CELL_SIZE = GRID_SIZE / 9
 
+
 def main():
     pygame.init()
     screen = pygame.display.set_mode((GRID_SIZE, GRID_SIZE + 60))
@@ -71,14 +72,6 @@ def main():
 
         pygame.display.update()
 
-    print(grid.grid)
-    for col in range(9):
-        print(cell_array[0][col].num)
-
 
 if __name__ == "__main__":
     main()
-
-
-
-

@@ -26,8 +26,8 @@ class Grid:
 
     def convert_cell(self):
         """
-        Convert grid array back into cell array.
-        :return:
+        Place values from grid array back into cell array.
+        :return: updated cell array
         """
         for row in range(0, 9):
             for col in range(0, 9):
@@ -38,6 +38,10 @@ class Grid:
                 cell.txt_area = cell.font.render(cell.text, True, (0, 0, 0))
 
     def draw_grid_lines(self):
+        """
+        Draw the lines of the grid on the screen.
+        :return: grid lines drawn
+        """
         for i in range(0, 10):
             if i % 3 == 0:
                 thick = 5
@@ -52,11 +56,19 @@ class Grid:
                              (i * self.cell_size, self.grid_size), thick)
 
     def draw_cells(self):
+        """
+        Draw each cell in the grid.
+        :return: all cells drawn
+        """
         for row in range(0, 9):
             for col in range(0, 9):
                 self.cell_array[row][col].draw_cell()
 
     def reset(self):
+        """
+        Remove all numbers in the grid.
+        :return: empty grid
+        """
         for row in range(0, 9):
             for col in range(0, 9):
                 cell = self.cell_array[row][col]
@@ -210,6 +222,10 @@ class Cell:
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
 
     def draw_cell(self):
+        """
+        Draw the cell on the screen. Blit value if not equal to 0.
+        :return: cell drawn, with text if value is 1-9
+        """
         # Draw the box
         pygame.draw.rect(self.screen, self.color, self.rect)
         # Blit the text/number onto the text surface
@@ -217,6 +233,11 @@ class Cell:
             self.screen.blit(self.txt_area, (self.rect.x + 18, self.rect.y + 13))
 
     def cell_event(self, event):
+        """
+        Handle the cell-related events.
+        :param event: event
+        :return: event handled
+        """
         if event.type == pygame.MOUSEBUTTONDOWN:
             if self.rect.collidepoint(event.pos):
                 self.active = True
