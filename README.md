@@ -1,5 +1,5 @@
 # Sudoku-Solver
-Python program that solves 9x9 grid sudoku puzzles using backtracking algorithm.
+Python program that allows users to input and solve 9x9 grid sudoku puzzles. This program uses the backtracking algorithm. 
 
 Run:
 * `solver.py` for text-based solver.
