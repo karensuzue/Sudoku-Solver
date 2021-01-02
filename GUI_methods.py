@@ -2,14 +2,15 @@ import pygame
 
 
 class Grid:
-    def __init__(self, cell_array, screen):
-        self.grid = []
+    def __init__(self, cell_array, screen, grid_size):
+        self.grid = [[0 for col in range(0, 9)] for row in range(0, 9)]
         self.empty_cells = []
-        self.grid_size = 450
-        self.cell_size = self.grid_size / 9
-        # form a 2 dimensional array of cells then take it into this class obj,
-        # all cells be blank and the same, use 2 for loops for that
         self.cell_array = cell_array
+        self.iterator = 0
+
+        self.grid_size = grid_size
+        self.cell_size = self.grid_size / 9
+
         self.screen = screen
         self.border_color = (0, 0, 0)
 
@@ -19,12 +20,23 @@ class Grid:
         array.
         :return: a complete grid array
         """
+        for row in range(0, 9):
+            for col in range(0, 9):
+                self.grid[row][col] = self.cell_array[row][col].num
 
     def convert_cell(self):
         """
         Convert grid array back into cell array.
         :return:
         """
+        for row in range(0, 9):
+            for col in range(0, 9):
+                cell = self.cell_array[row][col]
+                cell.num = self.grid[row][col]
+                cell.text = str(cell.num)
+                cell.active = False
+                cell.txt_area = cell.font.render(cell.text, True, (0, 0, 0))
+
     def draw_grid_lines(self):
         for i in range(0, 10):
             if i % 3 == 0:
@@ -38,6 +50,24 @@ class Grid:
             pygame.draw.line(self.screen, self.border_color,
                              (i * self.cell_size, 0),
                              (i * self.cell_size, self.grid_size), thick)
+
+    def draw_cells(self):
+        for row in range(0, 9):
+            for col in range(0, 9):
+                self.cell_array[row][col].draw_cell()
+
+    def reset(self):
+        for row in range(0, 9):
+            for col in range(0, 9):
+                cell = self.cell_array[row][col]
+                cell.num = 0
+                cell.text = ''
+                cell.active = False
+                cell.txt_area = cell.font.render(cell.text, True, (0, 0, 0))
+
+        for row in range(0, 9):
+            for col in range(0, 9):
+                self.grid[row][col] = 0
 
     def check_full(self):
         """
@@ -200,6 +230,12 @@ class Cell:
 
         if event.type == pygame.KEYDOWN:
             if self.active == True:
+                if event.key == pygame.K_BACKSPACE:
+                    self.text = ''
+                    self.num = 0
+                if event.key == pygame.K_0:
+                    self.text = ''
+                    self.num = 0
                 if event.key == pygame.K_1:
                     self.text = '1'
                     self.num = 1
